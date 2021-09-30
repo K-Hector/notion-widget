@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>900个格子</title>
+    <style>
+        .square {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #949494;
+            float: left;
+            text-align: center;
+            line-height: 30px;
+        }
+        .no-top {
+            border-top: 0px;
+        }
+        .no-right{
+            border-right: 0px;
+        }
+        .default-bg {
+            background-color: #C7EDCC;
+        }
+        .golden-bg {
+            background-color: #ffff77;
+        }
+        .green-bg {
+            background-color: #42ffa0;
+        }
+        .blue-bg {
+            background-color: 	#87CEEB;
+        }
+        .gray-bg {
+            background-color: #C0C0C0;
+        }
+        .purple-bg {
+            background-color: #d2bbff;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <div>假如生命按75岁来算，人的一辈子，是900个月，每一个方格代表一个月，已经填满颜色的方格代表逝去的岁月</div>
+    <div id="box" style="max-width: 931px"></div>
+</div>
+
+<script>
+    //例：一个已经26岁步入社会的成年人、童年、小学、初中、高中、大学、工作
+    var oBox = document.getElementById('box');
+    var totalSquare = 900;//总格子数900
+    var lineSquare = 30;//每行格子数30
+    var pastMonth = 26 * 12 + 6;//已经过去的格子数(年份*12+月份)
+    var childhood = 6 * 12;//童年
+    var primarySchool = 5 * 12;//小学
+    var middleSchool = 3 * 12;//初中
+    var highSchool = 3 * 12;//高中
+    var university = 4 * 12;//大学
+    var str = '';
+    for (var i = 1; i <= totalSquare; i++) {
+        //处理格子的样式
+        var cls = "square";
+        if(i < lineSquare){
+            cls = "square no-right";
+        }else if (i == lineSquare){
+            cls = "square";
+        }else{
+            if(i%lineSquare == 0){
+                cls = "square no-top";
+            }else{
+                cls = "square no-top no-right";
+            }
+        }
+        //处理格子的颜色
+        if(i <= pastMonth){
+            if(i <= childhood){
+                cls += " golden-bg";
+            }
+            if((childhood < i) && (i <= childhood + primarySchool)){
+                cls += " green-bg";
+            }
+            if((childhood + primarySchool < i) && (i <= childhood + primarySchool + middleSchool)){
+                cls += " blue-bg";
+            }
+            if((childhood + primarySchool + middleSchool < i) && (i <= childhood + primarySchool + middleSchool + highSchool)){
+                cls += " gray-bg";
+            }
+            if((childhood + primarySchool + middleSchool + highSchool < i) && (i <= childhood + primarySchool + middleSchool + highSchool + university)){
+                cls += " purple-bg";
+            }
+            if((childhood + primarySchool + middleSchool + highSchool + university < i)){
+                cls += " default-bg";
+            }
+        }
+        str += '<div class="' + cls + '" id = "square'+ i +'" title="' + i + '"></div>';
+    }
+    oBox.innerHTML = str;
+</script>
+</body>
+</html>
